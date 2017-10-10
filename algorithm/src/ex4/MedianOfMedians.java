@@ -3,7 +3,7 @@ package ex4;
 import java.util.Arrays;
 
 public class MedianOfMedians {
-    /*public static void findMedian(int arr[]) {
+public static void findMedian(int arr[]) {
         int median = findMedianUtil(arr, (arr.length) / 2 + 1, 0, arr.length - 1);
         System.out.println("메디안 : " + median);
     }
@@ -85,7 +85,8 @@ public class MedianOfMedians {
             medianIndex++;
         }
         return getPivotValue(medians, 0, medians.length - 1);
-    }*/
+    }
+
 
     public static void main(String args[]) {
         final int ELEMENTS = 400;
@@ -124,3 +125,4 @@ public class MedianOfMedians {
 
 
 }
+

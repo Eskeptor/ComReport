@@ -1,6 +1,8 @@
 package javabasic.ex6;
 
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 
 class ListFrame extends JFrame {
@@ -26,6 +28,7 @@ class ListFrame extends JFrame {
         add(imageLabel);
 
         list.addListSelectionListener((event)-> imageLabel.setIcon(images[list.getSelectedIndex()]));
+
     }
 }
 
