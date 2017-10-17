@@ -1,8 +1,6 @@
 package javabasic;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class StartView extends Frame {
     private TextField mNameTf;
@@ -33,23 +31,17 @@ public class StartView extends Frame {
 
         add(mPanel2);
 
-        playBtn.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if(mDicegame == null)
-                    mDicegame = new DiceGame();
-                mName = mNameTf.getText();
-                new DiceView(mName, mDicegame);
-                setVisible(false);
-                dispose();
-            }
+        playBtn.addActionListener((e)->{
+            if(mDicegame == null)
+                mDicegame = new DiceGame();
+            mName = mNameTf.getText();
+            new DiceView(mName, mDicegame);
+            setVisible(false);
+            dispose();
         });
 
-        exitBtn.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.exit(0);
-            }
+        exitBtn.addActionListener((e)->{
+            System.exit(0);
         });
 
         setSize(300, 150);
