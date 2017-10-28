@@ -136,7 +136,7 @@ public class Ex11 {
         if(args.length > 2)
             split = Integer.parseInt(args[2]);
 
-        JFrame frame = new JFrame("예제 11");
+        JFrame frame = new JFrame("과제 11");
         frame.setLayout(new BorderLayout());
         CustomShow show = new CustomShow(fileName, message, split);
         frame.add(show, BorderLayout.CENTER);
