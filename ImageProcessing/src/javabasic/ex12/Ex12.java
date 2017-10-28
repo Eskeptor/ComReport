@@ -26,7 +26,7 @@ class ImageComponent extends Component {
     private boolean mFirstExecute;
     private ARGB[][] mOriginalColor;
 
-    public ImageComponent(final String _imageSrc, final Color _color) {
+    ImageComponent(final String _imageSrc, final Color _color) {
         mColor = _color;
         try {
             InputStream inputStream = getClass().getResourceAsStream(_imageSrc);
@@ -93,7 +93,7 @@ class ImageComponent extends Component {
 }
 
 class MainFrame extends JFrame {
-    public MainFrame(final String _title) {
+    MainFrame(final String _title) {
         super(_title);
         setLayout(new BorderLayout());
 

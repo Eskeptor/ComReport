@@ -16,7 +16,8 @@ class PictureView extends JFrame {
     class MouseHandler implements MouseListener {
         @Override
         public void mouseClicked(MouseEvent e) {
-            JOptionPane.showConfirmDialog(null, "x:" + e.getX() + ", y:" + e.getY(), "알림", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showConfirmDialog(null, "x:" + e.getX() + ", y:" + e.getY(),
+                    "알림", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE);
         }
         @Override
         public void mousePressed(MouseEvent e) {}

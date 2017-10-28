@@ -7,7 +7,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.font.FontRenderContext;
 import java.awt.font.TextLayout;
-import java.awt.geom.Ellipse2D;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.io.InputStream;
@@ -56,10 +55,12 @@ class CustomShow extends Component {
 
         for(int y = 0; y < HEIGHT; y += SIDE) {
             for (int x = 0; x < WIDTH; x += SIDE) {
-                Ellipse2D ellipse2D = new Ellipse2D.Float(x, y, SIDE, SIDE);
+                int polyX[] = {(SIDE)/2 + x, x, SIDE + x};
+                int polyY[] = {y, SIDE + y, SIDE + y};
                 int INDEX = (x + y) / SIDE % COLORS.length;
+                _graphics2D.drawPolygon(polyX, polyY, 3);
                 _graphics2D.setPaint(COLORS[INDEX]);
-                _graphics2D.fill(ellipse2D);
+                _graphics2D.fillPolygon(polyX, polyY, 3);
             }
         }
     }
