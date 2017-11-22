@@ -51,9 +51,20 @@ class Pebble {
         return nodes[_height][_width];
     }
 
-    public void pebbleRockIt() {
-
+    /*
+        패턴
+        1. 1    2. 0    3. 0    4. 1
+           0       1       0       0
+           0       0       1       1
+     */
+    public void pebbleRockItThreeRow() {
+        final int PATTERN_THREE = 4;
+        int tmpTotal[] = new int[PATTERN_THREE];
+        for(int i = 0 ; i < PATTERN_THREE; i++) {
+//            tmpTotal[i] =
+        }
     }
+
 
     public void printPebble() {
         System.out.print("┌");
@@ -89,6 +100,11 @@ class Pebble {
 }
 
 class PebbleSetWindow extends JFrame {
+    PebbleSetWindow(final int _width, final int _height) {
+        new PebbleMainWindow(_width, _height);
+        dispose();
+    }
+
     PebbleSetWindow() {
         super("조약돌 놓기 1.0v");
         setLayout(new BorderLayout());
@@ -146,15 +162,28 @@ class PebbleMainWindow extends JFrame {
     private int peddleHeight;
     private JLabel[][] txtRock;
     private Pebble pebbleData;
+    private final int ROCK_WIDTH = 40;
+    private final int ROCK_HEIGHT = 40;
+
     PebbleMainWindow(final String _pebbleWidth, final String _pebbleHeight) {
         super("조약돌 놓기 1.0v");
-        final int ROCK_WIDTH = 40;
-        final int ROCK_HEIGHT = 40;
         setLayout(new BorderLayout());
-
         peddleWidth = Integer.parseInt(_pebbleWidth);
         peddleHeight = Integer.parseInt(_pebbleHeight);
 
+        init();
+    }
+
+    PebbleMainWindow(final int _pebbleWidth, final int _pebbleHeight) {
+        super("조약돌 놓기 1.0v");
+        setLayout(new BorderLayout());
+        peddleWidth = _pebbleWidth;
+        peddleHeight = _pebbleHeight;
+
+        init();
+    }
+
+    private void init() {
         JPanel rockLayout = new JPanel();
         rockLayout.setLayout(new GridLayout(peddleHeight, peddleWidth));
         txtRock = new JLabel[peddleHeight][peddleWidth];
@@ -233,6 +262,7 @@ class PebbleMainWindow extends JFrame {
 
 public class PebbleMain {
     public static void main(String[] args) {
-        new PebbleSetWindow();
+//        new PebbleSetWindow();
+        new PebbleSetWindow(8,3);
     }
 }
