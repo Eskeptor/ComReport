@@ -56,7 +56,7 @@ import java.util.Stack;
 public class DijkstraSP {
     private double[] distTo;          // distTo[v] = distance  of shortest s->v path
     private DirectedEdge[] edgeTo;    // edgeTo[v] = last edge on shortest s->v path
-    private IndexMinPQ<Double> pq;    // priority queue of vertices
+//    private IndexMinPQ<Double> pq;    // priority queue of vertices
 
     /**
      * Computes a shortest-paths tree from the source vertex <tt>s</tt> to every other
@@ -80,28 +80,28 @@ public class DijkstraSP {
         distTo[s] = 0.0;
 
         // relax vertices in order of distance from s
-        pq = new IndexMinPQ<Double>(G.V());
-        pq.insert(s, distTo[s]);
-        while (!pq.isEmpty()) {
-            int v = pq.delMin();
-            for (DirectedEdge e : G.adj(v))
-                relax(e);
-        }
+//        pq = new IndexMinPQ<Double>(G.V());
+//        pq.insert(s, distTo[s]);
+//        while (!pq.isEmpty()) {
+//            int v = pq.delMin();
+//            for (DirectedEdge e : G.adj(v))
+//                relax(e);
+//        }
 
         // check optimality conditions
         assert check(G, s);
     }
 
-    // relax edge e and update pq if changed
-    private void relax(DirectedEdge e) {
-        int v = e.from(), w = e.to();
-        if (distTo[w] > distTo[v] + e.weight()) {
-            distTo[w] = distTo[v] + e.weight();
-            edgeTo[w] = e;
-            if (pq.contains(w)) pq.decreaseKey(w, distTo[w]);
-            else                pq.insert(w, distTo[w]);
-        }
-    }
+//    // relax edge e and update pq if changed
+//    private void relax(DirectedEdge e) {
+//        int v = e.from(), w = e.to();
+//        if (distTo[w] > distTo[v] + e.weight()) {
+//            distTo[w] = distTo[v] + e.weight();
+//            edgeTo[w] = e;
+//            if (pq.contains(w)) pq.decreaseKey(w, distTo[w]);
+//            else                pq.insert(w, distTo[w]);
+//        }
+//    }
 
     /**
      * Returns the length of a shortest path from the source vertex <tt>s</tt> to vertex <tt>v</tt>.
