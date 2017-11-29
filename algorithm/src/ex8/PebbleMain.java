@@ -2,102 +2,9 @@ package ex8;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
-class PebbleNode {
-    private int value;
-    private boolean isCheck;
-    PebbleNode(final int _value) {
-        value = _value;
-        isCheck = false;
-    }
-
-    public void check() {
-        isCheck = true;
-    }
-
-    public int getValue() {
-        return value;
-    }
-
-    public boolean isCheck() {
-        return isCheck;
-    }
-}
-
-class Pebble {
-    private final int LIMIT = 15;
-    private PebbleNode[][] nodes;
-    private int pebbleWidth;
-    private int pebbleHeight;
-
-    Pebble(final int _width, final int _height) {
-        nodes = new PebbleNode[_height][_width];
-        pebbleWidth = _width;
-        pebbleHeight = _height;
-
-        int plusMinus;
-        for(int i = 0; i < _height; i++) {
-            for(int j = 0; j < _width; j++) {
-                plusMinus = (int)(Math.random() * 2);
-                if(plusMinus == 0)
-                    nodes[i][j] = new PebbleNode((int)(Math.random() * LIMIT) + 1);
-                else
-                    nodes[i][j] = new PebbleNode(((int)(Math.random() * LIMIT) + 1) * -1);
-            }
-        }
-    }
-
-    public PebbleNode getPebbleNodeData(final int _height, final int _width) {
-        return nodes[_height][_width];
-    }
-
-    /*
-        패턴
-        1. 1    2. 0    3. 0    4. 1
-           0       1       0       0
-           0       0       1       1
-     */
-    public void pebbleRockItThreeRow() {
-        final int PATTERN_THREE = 4;
-        int tmpTotal[] = new int[PATTERN_THREE];
-        for(int i = 0 ; i < PATTERN_THREE; i++) {
-//            tmpTotal[i] =
-        }
-    }
-
-
-    public void printPebble() {
-        System.out.print("┌");
-        for(int i = 0; i < pebbleWidth * 4 - 1; i++)
-            System.out.print("─");
-        System.out.println("┐");
-
-        for(int i = 0; i < pebbleHeight; i++) {
-            System.out.print("│");
-            for(int j = 0; j < pebbleWidth; j++) {
-                if(nodes[i][j].getValue() > 0) {
-                    if(nodes[i][j].getValue() < 10)
-                        System.out.print("  " + nodes[i][j].getValue() + "│");
-                    else
-                        System.out.print(" " + nodes[i][j].getValue() + "│");
-                } else {
-                    if(nodes[i][j].getValue() > -10)
-                        System.out.print(" " + nodes[i][j].getValue() + "│");
-                    else
-                        System.out.print(nodes[i][j].getValue() + "│");
-                }
-
-            }
-            System.out.println();
-        }
-
-        System.out.print("└");
-        for(int i = 0; i < pebbleWidth * 4 - 1; i++)
-            System.out.print("─");
-        System.out.println("┘");
-        System.out.println();
-    }
-}
 
 class PebbleSetWindow extends JFrame {
     PebbleSetWindow(final int _width, final int _height) {
@@ -160,18 +67,20 @@ class PebbleMainWindow extends JFrame {
 
     private int peddleWidth;
     private int peddleHeight;
-    private JLabel[][] txtRock;
+    private PebbleLabel[][] txtRock;
     private Pebble pebbleData;
     private final int ROCK_WIDTH = 40;
     private final int ROCK_HEIGHT = 40;
+    private int isCheck;
+    private PebbleLabel checkedLabel;
 
     PebbleMainWindow(final String _pebbleWidth, final String _pebbleHeight) {
         super("조약돌 놓기 1.0v");
         setLayout(new BorderLayout());
         peddleWidth = Integer.parseInt(_pebbleWidth);
         peddleHeight = Integer.parseInt(_pebbleHeight);
-
-        init();
+        isCheck = 0;
+        initGraphicComponent();
     }
 
     PebbleMainWindow(final int _pebbleWidth, final int _pebbleHeight) {
@@ -180,16 +89,50 @@ class PebbleMainWindow extends JFrame {
         peddleWidth = _pebbleWidth;
         peddleHeight = _pebbleHeight;
 
-        init();
+        initGraphicComponent();
     }
 
-    private void init() {
+    private void initGraphicComponent() {
         JPanel rockLayout = new JPanel();
         rockLayout.setLayout(new GridLayout(peddleHeight, peddleWidth));
-        txtRock = new JLabel[peddleHeight][peddleWidth];
+        txtRock = new PebbleLabel[peddleHeight][peddleWidth];
         for(int i = 0; i < peddleHeight; i++) {
             for(int j = 0; j < peddleWidth; j++) {
-                txtRock[i][j] = new JLabel();
+                txtRock[i][j] = new PebbleLabel("", j, i);
+                Font font = txtRock[i][j].getFont();
+                txtRock[i][j].setFont(font.deriveFont(font.getStyle() & ~Font.BOLD, 20));
+                txtRock[i][j].addMouseListener(new MouseListener() {
+                    @Override
+                    public void mouseClicked(MouseEvent e) {
+                        JLabel label = (JLabel)e.getComponent();
+                        if(label.getForeground() == Color.RED) {
+                            label.setForeground(Color.BLACK);
+                            Font font = label.getFont();
+                            label.setFont(font.deriveFont(font.getStyle() & ~Font.BOLD, 20));
+                            isCheck--;
+                            if (isCheck == 0) {
+                                checkedLabel = null;
+                            }
+                        }
+                        else {
+                            label.setForeground(Color.RED);
+                            Font font = label.getFont();
+                            label.setFont(font.deriveFont(font.getStyle() | Font.BOLD, 30));
+                            isCheck++;
+                            if (isCheck == 1)
+                                checkedLabel = (PebbleLabel) e.getComponent();
+                        }
+                        System.out.println("isCheck: " + isCheck);
+                    }
+                    @Override
+                    public void mousePressed(MouseEvent e) {}
+                    @Override
+                    public void mouseReleased(MouseEvent e) {}
+                    @Override
+                    public void mouseEntered(MouseEvent e) {}
+                    @Override
+                    public void mouseExited(MouseEvent e) {}
+                });
                 rockLayout.add(txtRock[i][j]);
             }
         }
@@ -206,7 +149,12 @@ class PebbleMainWindow extends JFrame {
             setRocks(RockFlag.CREATE);
         });
         startBtn.addActionListener((e) -> {
-            startRockDown();
+            if(isCheck <= 0)
+                JOptionPane.showMessageDialog(PebbleMainWindow.this, "조약돌이 선택되지 않았습니다.");
+            else if (isCheck > 1)
+                JOptionPane.showMessageDialog(PebbleMainWindow.this, "조약돌이 2개이상 선택되었습니다.");
+            else
+                startRockDown();
         });
         resetBtn.addActionListener((e) -> {
             startBtn.setEnabled(false);
@@ -234,6 +182,10 @@ class PebbleMainWindow extends JFrame {
                 for(int i = 0; i < peddleHeight; i++) {
                     for(int j = 0; j < peddleWidth; j++) {
                         txtRock[i][j].setText("");
+                        txtRock[i][j].setForeground(Color.BLACK);
+                        Font font = txtRock[i][j].getFont();
+                        txtRock[i][j].setFont(font.deriveFont(font.getStyle() & ~Font.BOLD, 20));
+                        isCheck = 0;
                     }
                 }
                 break;
@@ -251,12 +203,17 @@ class PebbleMainWindow extends JFrame {
     }
 
     private void startRockDown() {
+        int max = pebbleData.pebbleRockItThreeRow(checkedLabel);
         for(int i = 0; i < peddleHeight; i++) {
             for(int j = 0; j < peddleWidth; j++) {
-                if(pebbleData.getPebbleNodeData(i, j).isCheck())
+                if(pebbleData.getPebbleNodeData(i, j).isCheck()) {
                     txtRock[i][j].setForeground(Color.RED);
+                    Font font = txtRock[i][j].getFont();
+                    txtRock[i][j].setFont(font.deriveFont(font.getStyle() | Font.BOLD, 30));
+                }
             }
         }
+        JOptionPane.showMessageDialog(PebbleMainWindow.this, "최대값: " + max);
     }
 }
 

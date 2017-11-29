@@ -214,7 +214,7 @@ public class BellmanFordSP {
 
     /* Unit tests the BellmanFordSP data type. */
     public static void main(String[] args) {
-        In in = new In(DigraphGenerator.class.getResource(".").getPath() + "mediumEWD.txt");
+        In in = new In(DigraphGenerator.class.getResource(".").getPath() + "tinyEWD.txt");
         int s = 0;
         EdgeWeightedDigraph G = new EdgeWeightedDigraph(in);
 

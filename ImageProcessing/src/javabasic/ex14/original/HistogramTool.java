@@ -199,7 +199,7 @@ public class HistogramTool extends JFrame implements ActionListener {
     }
 
     public static void main(String[] argv) {
-        String str = HistogramTool.class.getResource("2.jpg").getPath();
+        String str = HistogramTool.class.getResource("1.jpg.pgm").getPath();
         try {
             ImageDecoder input = ImageFile.createImageDecoder(str);
             BufferedImage image = input.decodeAsBufferedImage();

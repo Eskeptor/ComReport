@@ -1,7 +1,5 @@
 package ex10;
 
-import ex9.*;
-
 /******************************************************************************
  *  Compilation:  javac EdgeWeightedDigraph.java
  *  Execution:    java EdgeWeightedDigraph V E

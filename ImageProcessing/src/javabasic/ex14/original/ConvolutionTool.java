@@ -310,7 +310,7 @@ public class ConvolutionTool extends JFrame implements ActionListener {
     public static void main(String[] argv) {
         try {
             int w = 5, h = 5;
-            String str = ConvolutionTool.class.getResource("1.jpg.pgm").getPath();
+            String str = ConvolutionTool.class.getResource("123.pgm").getPath();
             JFrame frame = new ConvolutionTool(str, w, h);
             frame.pack();
             frame.setVisible(true);

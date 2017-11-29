@@ -56,6 +56,7 @@ public class ImageViewer extends JFrame {
         super(_imageSrc);
         try {
             InputStream inputStream = getClass().getResourceAsStream(_imageSrc);
+            getClass().getResource("").getPath();
             JPEGImageDecoder decoder = JPEGCodec.createJPEGDecoder(inputStream);
             mImage = decoder.decodeAsBufferedImage();
             inputStream.close();

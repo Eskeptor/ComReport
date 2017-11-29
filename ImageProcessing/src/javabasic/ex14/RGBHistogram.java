@@ -1,7 +1,9 @@
-package javabasic.ex14.original;
+package javabasic.ex14;
 
 import com.sun.image.codec.jpeg.JPEGCodec;
 import com.sun.image.codec.jpeg.JPEGImageDecoder;
+import javabasic.ex14.original.Histogram;
+import javabasic.ex14.original.PPMDecoder;
 
 import javax.swing.*;
 import java.awt.*;
@@ -106,9 +108,10 @@ public class RGBHistogram extends JFrame {
 
     public static void main(String[] args) throws Exception {
 //        InputStream inputStream = RGBHistogram.class.getResourceAsStream("2.jpg");
-        InputStream inputStream = RGBHistogram.class.getResourceAsStream("1_1.jpg");
-        JPEGImageDecoder decoder = JPEGCodec.createJPEGDecoder(inputStream);
-        final BufferedImage image = decoder.decodeAsBufferedImage();
+        InputStream inputStream = RGBHistogram.class.getResourceAsStream("123.pgm");
+//        JPEGImageDecoder decoder = JPEGCodec.createJPEGDecoder(inputStream);
+//        final BufferedImage image = decoder.decodeAsBufferedImage();
+        final BufferedImage image = new PPMDecoder(inputStream).decodeAsBufferedImage();
         inputStream.close();
 
         Histogram histogram = new Histogram(image);
